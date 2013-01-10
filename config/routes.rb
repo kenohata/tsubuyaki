@@ -1,4 +1,7 @@
 Tsubuyaki::Application.routes.draw do
+  resources :tweets
+
+
   devise_for :users
 
   # The priority is based upon order of creation:
