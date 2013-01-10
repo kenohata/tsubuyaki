@@ -12,14 +12,14 @@ class TweetsController < ApplicationController
 
   # GET /tweets/1
   # GET /tweets/1.json
-  def show
-    @tweet = Tweet.find(params[:id])
+  # def show
+  #   @tweet = Tweet.find(params[:id])
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @tweet }
-    end
-  end
+  #   respond_to do |format|
+  #     format.html # show.html.erb
+  #     format.json { render json: @tweet }
+  #   end
+  # end
 
   # GET /tweets/new
   # GET /tweets/new.json
