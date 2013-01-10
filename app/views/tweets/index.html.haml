@@ -1,5 +1,7 @@
 %h1 Listing tweets
 
+= render 'form'
+
 %table
   %tr
     %th User
@@ -15,7 +17,3 @@
       %td= link_to 'Show', tweet
       %td= link_to 'Edit', edit_tweet_path(tweet)
       %td= link_to 'Destroy', tweet, method: :delete, data: { confirm: 'Are you sure?' }
-
-%br
-
-= link_to 'New Tweet', new_tweet_path
