@@ -5,4 +5,10 @@ class Tweet < ActiveRecord::Base
   has_many :favorites
   validates_associated :user
   validates :content, presence: true, length: { in: 1..140 }
+
+  def favorited? user
+    favorites.any? do |f|
+      f.user == user
+    end
+  end
 end
