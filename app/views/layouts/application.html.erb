@@ -8,6 +8,11 @@
 </head>
 <body>
 
+<div class="header container">
+  <%= link_to "home", tweets_path %> | 
+  <%= link_to "users", users_path %>
+</div>
+
 <div class="container">
   <%= yield %>
 </div>
