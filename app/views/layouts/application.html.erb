@@ -8,13 +8,17 @@
 </head>
 <body>
 
-<%= yield %>
+<div class="container">
+  <%= yield %>
+</div>
 
 <hr>
 
-<% if user_signed_in? %>
-  <%= link_to 'sign out', destroy_user_session_path, method: :delete %>
-<% end %>
+<div class="footer container">
+  <% if user_signed_in? %>
+    <%= link_to 'sign out', destroy_user_session_path, method: :delete %>
+  <% end %>
+</div>
 
 </body>
 </html>
