@@ -3,3 +3,4 @@
 .users
   = div_for @users do |u|
     = u.email
+    = link_to "follow", user_follow_path(u), method: :post
