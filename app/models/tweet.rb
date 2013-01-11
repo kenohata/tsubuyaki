@@ -1,6 +1,6 @@
 class Tweet < ActiveRecord::Base
   attr_accessible :content
-  default_scope order('created_at DESC').includes(:favorites)
+  default_scope order('created_at DESC').includes(:favorites, :user)
   belongs_to :user
   has_many :favorites
   validates_associated :user
