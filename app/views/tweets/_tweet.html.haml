@@ -1,0 +1,8 @@
+.tweet
+  .content
+    = tweet.content
+  .footer
+    - if tweet.favorited? current_user
+      = link_to "Unfavorite(#{tweet.favorites.size})", tweet_favorite_path(tweet), method: :delete
+    - else
+      = link_to "Favorite(#{tweet.favorites.size})", tweet_favorite_path(tweet), method: :post
