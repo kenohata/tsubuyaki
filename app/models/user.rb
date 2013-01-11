@@ -10,4 +10,9 @@ class User < ActiveRecord::Base
   # attr_accessible :title, :body
   has_many :tweets
   has_many :favorites
+
+  has_many :follows
+  has_many :following_users, through: :follows, source: :user
+  has_many :inverse_follows, class_name: Follow, foreign_key: :followed_id
+  has_many :followed_users, through: :inverse_follows
 end
