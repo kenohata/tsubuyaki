@@ -1,5 +1,14 @@
-.tweet
+.tweet.accordion-inner{ id: dom_id(tweet) }
   .content
     = tweet.content
-  .footer
-    = favorite_button tweet, current_user, "favorite", "unfavorite"
+  .accordion-body.collapse
+    .accordion-inner
+      .row
+        .span1.fav
+          %strong= tweet.favorites.size
+          %br
+          %small.muted お気に入り
+        .span4.muted
+          = tweet.created_at.strftime("%Y年%m月%d日 - %H:%M")
+    .accordion-inner
+      = favorite_button tweet, current_user, content_tag(:i, nil, class: "icon-star") + "お気に入りに登録", content_tag(:i, nil, class: "icon-star") + "お気に入り登録を解除"

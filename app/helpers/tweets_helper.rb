@@ -7,6 +7,6 @@ module TweetsHelper
       text = fav_text
       method = :post
     end
-    link_to text, tweet_favorite_path(tweet), method: method, class: "btn"
+    link_to text, tweet_favorite_path(tweet), method: method
   end
 end
