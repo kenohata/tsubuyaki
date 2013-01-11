@@ -1,8 +1,7 @@
 Tsubuyaki::Application.routes.draw do
   devise_for :users
   resources :tweets, except: [:new, :show] do
-    post :favorite
-    delete :favorite, action: :unfavorite
+    resource :favorite, only: [:create, :destroy]
   end
 
   root to: 'tweets#index'
