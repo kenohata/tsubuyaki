@@ -1,6 +1,8 @@
 Tsubuyaki::Application.routes.draw do
   devise_for :users
 
+  resources :token_authentications, only: [:create, :destroy]
+
   resources :tweets, except: [:new, :show] do
     resource :favorite, only: [:create, :destroy]
   end
