@@ -1,6 +1,7 @@
 .tweet.accordion-inner{ id: dom_id(tweet) }
   .content
     = tweet.content
+    = image_tag tweet.image_url.to_s
   .accordion-body.collapse
     .accordion-inner
       .row
