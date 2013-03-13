@@ -1,24 +1,23 @@
-class Api::SessionsController < DeviseController
-  prepend_before_filter :require_no_authentication, :only => [ :new, :create ]
-  prepend_before_filter :allow_params_authentication!, :only => :create
-  prepend_before_filter { request.env["devise.skip_timeout"] = true }
+class Api::SessionsController < Devise::SessionsController
+  skip_before_filter :protect_from_forgery
 
-  # GET /resource/sign_in
-  def new
-    resource = build_resource(nil, :unsafe => true)
-    clean_up_passwords(resource)
-    respond_with(resource, serialize_options(resource))
-  end
-
-  # POST /resource/sign_in
   def create
-    resource = warden.authenticate!(auth_options)
-    set_flash_message(:notice, :signed_in) if is_navigational_format?
-    sign_in(resource_name, resource)
-    respond_with resource, :location => after_sign_in_path_for(resource)
+    build_resource
+    resource = User.find_for_database_authentication(email: params[:api_user][:email])
+    render json: { error: 'cant find such a user.' } unless resource
+
+    if resource.valid_password?(params[:api_user][:password])
+      resource.ensure_authentication_token!
+      render json: {
+        auth_token: resource.authentication_token,
+        user: resource
+         },
+        status: :created
+    else
+      render json: {error: 'invalid username or password.'}
+    end
   end
 
-  # DELETE /resource/sign_out
   def destroy
     redirect_path = after_sign_out_path_for(resource_name)
     signed_out = (Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name))
@@ -32,18 +31,5 @@ class Api::SessionsController < DeviseController
         head :no_content
       end
     end
-  end
-
-  protected
-
-  def serialize_options(resource)
-    methods = resource_class.authentication_keys.dup
-    methods = methods.keys if methods.is_a?(Hash)
-    methods << :password if resource.respond_to?(:password)
-    { :methods => methods, :only => [:password] }
-  end
-
-  def auth_options
-    { :scope => resource_name, :recall => "#{controller_path}#new" }
   end
 end
