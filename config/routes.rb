@@ -12,6 +12,10 @@ Tsubuyaki::Application.routes.draw do
   end
   root to: 'tweets#index'
 
+  namespace :api do
+    devise_for :users, controllers: { sessions: 'api/sessions' }
+  end
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
