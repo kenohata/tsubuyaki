@@ -1,0 +1,8 @@
+= form_for @user, url: profile_path do |f|
+  = f.text_field :name
+  %br
+  = f.text_area :bio
+  %br
+  = f.file_field :avatar
+  %br
+  = f.submit
