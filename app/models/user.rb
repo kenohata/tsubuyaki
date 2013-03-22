@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :token_authenticatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :bio, :name, :avatar
   # attr_accessible :title, :body
   has_many :tweets
   has_many :favorites
@@ -15,6 +15,10 @@ class User < ActiveRecord::Base
   has_many :following_users, through: :follows, source: :user
   has_many :inverse_follows, class_name: Follow, foreign_key: :followed_id
   has_many :followed_users, through: :inverse_follows
+
+  mount_uploader :avatar, AvatarUploader
+
+  validates :name, uniqueness: true
 
   def followed? user
     Follow.exists?(user_id: user.id, followed_id: self.id)
