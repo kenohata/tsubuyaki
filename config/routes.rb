@@ -14,8 +14,19 @@ Tsubuyaki::Application.routes.draw do
 
   namespace :api do
     devise_for :users, controllers: { sessions: 'api/sessions' }
-    resources :tweets
+    resources :tweets do
+      member do
+        post :favorite
+        delete :favorite, action: :unfavorite
+      end
+    end
+    resources :users do
+      post :follow
+      delete :follow, action: :unfollow
+    end
   end
+
+  resource :profile
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
