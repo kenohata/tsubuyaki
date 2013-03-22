@@ -1,0 +1,22 @@
+!!!
+%html
+  %head
+    %title Tsubuyaki
+    = stylesheet_link_tag    "application", :media => "all"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+  %body
+    - if user_signed_in?
+      .header.container
+        .navbar
+          .navbar-inner
+            = link_to "Yakicame", root_path, class: "brand"
+            %ul.nav
+              %li= link_to "My Page", user_path(current_user)
+              %li= link_to "Edit Profile", edit_profile_path
+              %li= link_to "Sign out", destroy_user_session_path, method: :delete
+    .container
+      = yield
+    %hr/
+    .footer.container
+      Copyright © 2013 Yakicame All rights reserved.
